@@ -10,7 +10,7 @@
       ]
     },
     "event": {
-      "type": "useCompanyFinancials"
+      "type": "financials"
     }
   },
   {
@@ -24,7 +24,7 @@
       ]
     },
     "event": {
-      "type": "useCompanyStock"
+      "type": "stock"
     }
   },
   {
@@ -38,7 +38,7 @@
       ]
     },
     "event": {
-      "type": "useCompanyInfo"
+      "type": "info"
     }
   }
 ]

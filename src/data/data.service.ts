@@ -23,9 +23,9 @@ export class DataService {
     const decision = await this.ruleService.getTableDecision(tableName);
 
     const repositoryMap = {
-      useCompanyFinancials: CompanyFinancials,
-      useCompanyStock: CompanyStock,
-      useCompanyInfo: CompanyInfo
+      financials: CompanyFinancials,
+      stock: CompanyStock,
+      info: CompanyInfo
     };
 
     const entity = repositoryMap[decision];
