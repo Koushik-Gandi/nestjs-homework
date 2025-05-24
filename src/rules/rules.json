@@ -1,0 +1,44 @@
+[
+  {
+    "conditions": {
+      "all": [
+        {
+          "fact": "tableName",
+          "operator": "equal",
+          "value": "CompanyFinancials"
+        }
+      ]
+    },
+    "event": {
+      "type": "useCompanyFinancials"
+    }
+  },
+  {
+    "conditions": {
+      "all": [
+        {
+          "fact": "tableName",
+          "operator": "equal",
+          "value": "CompanyStock"
+        }
+      ]
+    },
+    "event": {
+      "type": "useCompanyStock"
+    }
+  },
+  {
+    "conditions": {
+      "all": [
+        {
+          "fact": "tableName",
+          "operator": "equal",
+          "value": "CompanyInfo"
+        }
+      ]
+    },
+    "event": {
+      "type": "useCompanyInfo"
+    }
+  }
+]
