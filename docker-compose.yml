@@ -9,6 +9,9 @@ services:
     environment:
       - REDIS_HOST=redis
       - DB_HOST=postgres
+      - ZEEBE_CLIENT_ID=<your-client-id>
+      - ZEEBE_CLIENT_SECRET=<your-client-secret>
+      - ZEEBE_ADDRESS=<your-zeebe-address>
     volumes:
       - .:/app
 

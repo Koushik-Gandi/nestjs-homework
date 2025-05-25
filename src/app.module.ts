@@ -3,11 +3,11 @@ import { CacheModule } from '@nestjs/cache-manager';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataController } from './data/data.controller';
 import { DataService } from './data/data.service';
-import { RuleEngineService } from './rules/rule-engine.service';
 import { CompanyFinancials } from './entities/company-financials.entity';
 import { CompanyStock } from './entities/company-stock.entity';
 import { CompanyInfo } from './entities/company-info.entity';
 import * as redisStore from 'cache-manager-ioredis';
+import { CamundaService } from './camunda-service/camunda.service';
 
 @Module({
   imports: [
@@ -30,6 +30,6 @@ import * as redisStore from 'cache-manager-ioredis';
     TypeOrmModule.forFeature([CompanyFinancials, CompanyStock, CompanyInfo]),
   ],
   controllers: [DataController],
-  providers: [DataService, RuleEngineService],
+  providers: [DataService, CamundaService],
 })
 export class AppModule {}

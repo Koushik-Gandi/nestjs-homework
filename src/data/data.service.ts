@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import {  DataSource } from 'typeorm';
 import { CompanyFinancials } from '../entities/company-financials.entity';
-import { RuleEngineService } from '../rules/rule-engine.service';
 import { CompanyStock } from '../entities/company-stock.entity';
 import { CompanyInfo } from '../entities/company-info.entity';
+import { CamundaService } from 'src/camunda-service/camunda.service';
 
 @Injectable()
 export class DataService {
   constructor(
-    private readonly ruleService: RuleEngineService,
+    private readonly camundaService: CamundaService,
     private readonly dataSource: DataSource
   ) {}
 
@@ -20,7 +20,9 @@ export class DataService {
       if (cached !== undefined) return cached;
     }
 
-    const decision = await this.ruleService.getTableDecision(tableName);
+    const decision = await this.camundaService.getTableDecision(ticker, tableName);
+
+    // const decision = await this.ruleService.getTableDecision(tableName);
 
     const repositoryMap = {
       financials: CompanyFinancials,
@@ -28,10 +30,12 @@ export class DataService {
       info: CompanyInfo
     };
 
-    const entity = repositoryMap[decision];
-    const repository = this.dataSource.getRepository(entity);
+   const entity = repositoryMap[decision];
+    if (!entity) throw new Error('Invalid table decision');
 
-    const row = await repository.findOne({ where: { ticker } });
+    const repo = this.dataSource.getRepository(entity);
+    const row = await repo.findOne({ where: { ticker } });
+
     if (!row || !(dataPoint in row)) {
       throw new Error('Data not found');
     }
