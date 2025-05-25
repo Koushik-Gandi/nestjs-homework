@@ -64,7 +64,7 @@ describe('DataService', () => {
 
   it('should fetch CompanyFinancials if not cached', async () => {
     cacheManager.get.mockResolvedValue(undefined);
-    ruleEngine.getTableDecision.mockResolvedValue('useCompanyFinancials');
+    ruleEngine.getTableDecision.mockResolvedValue('financials');
     financialsRepo.findOne.mockResolvedValue({ ticker: 'AAPL', revenue: 100 });
     const result = await service.getData('AAPL', 'revenue', 'financials');
     expect(result).toBe(100);
@@ -74,7 +74,7 @@ describe('DataService', () => {
 
   it('should fetch CompanyStock if not cached', async () => {
     cacheManager.get.mockResolvedValue(undefined);
-    ruleEngine.getTableDecision.mockResolvedValue('useCompanyStock');
+    ruleEngine.getTableDecision.mockResolvedValue('stock');
     stockRepo.findOne.mockResolvedValue({ ticker: 'AAPL', price: 200 });
     const result = await service.getData('AAPL', 'price', 'stock');
     expect(result).toBe(200);
@@ -84,7 +84,7 @@ describe('DataService', () => {
 
   it('should fetch CompanyInfo if not cached', async () => {
     cacheManager.get.mockResolvedValue(undefined);
-    ruleEngine.getTableDecision.mockResolvedValue('useCompanyInfo');
+    ruleEngine.getTableDecision.mockResolvedValue('info');
     infoRepo.findOne.mockResolvedValue({ ticker: 'AAPL', name: 'Apple Inc.' });
     const result = await service.getData('AAPL', 'name', 'info');
     expect(result).toBe('Apple Inc.');
@@ -94,7 +94,7 @@ describe('DataService', () => {
 
   it('should throw error if row not found', async () => {
     cacheManager.get.mockResolvedValue(undefined);
-    ruleEngine.getTableDecision.mockResolvedValue('useCompanyStock');
+    ruleEngine.getTableDecision.mockResolvedValue('stock');
     stockRepo.findOne.mockResolvedValue(undefined);
     await expect(service.getData('AAPL', 'price', 'stock')).rejects.toThrow('Data not found');
     expect(stockRepo.findOne).toHaveBeenCalledWith({ where: { ticker: 'AAPL' } });
